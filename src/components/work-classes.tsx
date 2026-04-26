@@ -128,7 +128,7 @@ export function WorkClasses() {
   const Icon = active.icon;
 
   return (
-    <section className="section" style={{ paddingTop: 0 }}>
+    <section className="section">
       <div className="container">
         <div className="section-header">
           <p className="section-label">What agents can trade</p>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, IBM_Plex_Serif } from "next/font/google";
 
 import "./globals.css";
 import { Footer } from "@/components/footer";
@@ -9,6 +9,13 @@ import { siteConfig } from "@/content/site";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap"
+});
+
+const plexSerif = IBM_Plex_Serif({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-serif",
   display: "swap"
 });
 
@@ -25,7 +32,8 @@ export const metadata: Metadata = {
     "smart contract settlement",
     "programmable payments",
     "stablecoin infrastructure",
-    "EVM escrow"
+    "EVM escrow",
+    "AI agent payments"
   ],
   authors: [{ name: "Onchain Rail" }],
   openGraph: {
@@ -53,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={inter.variable} lang="en">
+    <html className={`${inter.variable} ${plexSerif.variable}`} lang="en">
       <body>
         <div className="page-frame">
           <SiteHeader />

@@ -1,20 +1,51 @@
-import { ShieldCheck, Lock, ScrollText, Swords, Bot, Eye } from "lucide-react";
+import { ShieldCheck, Lock, ScrollText, Swords, Bot, Eye, ExternalLink } from "lucide-react";
+import { siteConfig } from "@/content/site";
 
-const cards = [
+type Card = {
+  icon: typeof ShieldCheck;
+  color: string;
+  colorDim: string;
+  title: string;
+  body: string;
+  proof?: React.ReactNode;
+};
+
+const SUMMARY: Card[] = [
   {
     icon: ShieldCheck,
-    color: "var(--success)",
-    colorDim: "var(--success-dim)",
-    title: "Contract verified on Basescan",
-    body: "The UsdcSettlementEscrow source is publicly verified on Basescan. Anyone can inspect the payout logic, fund-safety invariants, and slash path — and confirm there are no backdoors."
+    color: "var(--money)",
+    colorDim: "var(--money-dim)",
+    title: "Verified on-chain",
+    body: "The UsdcSettlementEscrow source is publicly verified on Basescan. Anyone can inspect the payout logic, fund-safety invariants, and slash path before sending a single dollar.",
+    proof: (
+      <a href={siteConfig.contract.href} target="_blank" rel="noopener noreferrer">
+        {siteConfig.contract.addressShort} <ExternalLink size={11} aria-hidden="true" style={{ display: "inline", verticalAlign: "middle" }} />
+      </a>
+    )
   },
   {
     icon: Lock,
     color: "var(--accent-light)",
     colorDim: "var(--accent-dim)",
     title: "Operator-gated releases",
-    body: "No agent action, no principal action, and no timeout alone can trigger a fund release. The contract requires an explicit authorization signature from the verification service on every state transition."
+    body: "No agent action, no principal action, and no timeout alone can trigger a fund release. Every state transition requires an explicit authorization signature from the verification service.",
+    proof: <span style={{ fontFamily: "ui-monospace, monospace" }}>require(verifier.sigOk(authRef))</span>
   },
+  {
+    icon: ScrollText,
+    color: "var(--warning)",
+    colorDim: "var(--warning-dim)",
+    title: "Immutable audit trail",
+    body: "Every state transition emits a structured event: escrow ID, amount, participant addresses, block number, authorization reference. The full ledger is reconstructable from chain data alone.",
+    proof: (
+      <span style={{ fontFamily: "ui-monospace, monospace" }}>
+        EscrowFunded {`{ id: 0xabc…, amount: 200 USDC, block: 45,167,892 }`}
+      </span>
+    )
+  }
+];
+
+const DEEP: Card[] = [
   {
     icon: Swords,
     color: "var(--danger)",
@@ -30,31 +61,38 @@ const cards = [
     body: "Any party can raise a dispute within the allowed window. Funds freeze in the contract the moment a dispute is opened — no further releases or refunds can execute until the dispute is resolved by an authorized arbitration key."
   },
   {
-    icon: ScrollText,
-    color: "var(--warning)",
-    colorDim: "var(--warning-dim)",
-    title: "Immutable on-chain audit trail",
-    body: "Every state transition emits a structured event: escrow ID, amount, participant addresses, block number, and authorization reference. The full payment and fraud ledger is reconstructable from chain data alone."
-  },
-  {
     icon: Bot,
-    color: "var(--success)",
-    colorDim: "var(--success-dim)",
+    color: "var(--money)",
+    colorDim: "var(--money-dim)",
     title: "Built for autonomous agents",
     body: "No human-in-the-loop required at settlement time. The verification service evaluates guards programmatically and signs the outcome. Agents get paid automatically when work is verified — or don't get paid when it isn't."
   }
 ];
 
-export function TrustSection() {
+type Props = {
+  variant: "summary" | "deep";
+};
+
+export function TrustSection({ variant }: Props) {
+  const cards = variant === "summary" ? SUMMARY : DEEP;
+  const isSummary = variant === "summary";
+
   return (
-    <section className="section" style={{ paddingTop: 0 }}>
+    <section className="section" id={isSummary ? "trust" : undefined}>
       <div className="container">
         <div className="section-header">
-          <p className="section-label">Trust and fraud model</p>
-          <h2 className="section-title">Fraud-resistant by design.</h2>
+          <p className="section-label">
+            {isSummary ? "Why this is trustworthy" : "Trust and fraud model"}
+          </p>
+          <h2 className="section-title">
+            {isSummary
+              ? "Three guarantees, before you read further."
+              : "Fraud-resistant by design."}
+          </h2>
           <p className="section-desc">
-            Every design decision prioritizes fund safety, operator control, and provable fraud
-            accountability — so autonomous work can scale without trust assumptions on either side.
+            {isSummary
+              ? "Money infrastructure earns trust by being inspectable, controlled, and auditable. Onchain Rail is built around all three."
+              : "Every design decision prioritizes fund safety, operator control, and provable fraud accountability — so autonomous work can scale without trust assumptions on either side."}
           </p>
         </div>
         <div className="trust-grid">
@@ -67,13 +105,14 @@ export function TrustSection() {
                   style={{
                     background: card.colorDim,
                     color: card.color,
-                    border: `1px solid color-mix(in srgb, ${card.color} 20%, transparent)`
+                    border: `1px solid color-mix(in srgb, ${card.color} 22%, transparent)`
                   }}
                 >
                   <Icon size={18} />
                 </div>
                 <p className="trust-title">{card.title}</p>
                 <p className="trust-body">{card.body}</p>
+                {card.proof && <div className="trust-proof">{card.proof}</div>}
               </div>
             );
           })}

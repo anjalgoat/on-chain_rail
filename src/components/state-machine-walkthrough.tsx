@@ -196,7 +196,7 @@ export function StateMachineWalkthrough() {
   const accent = accentColors[activeState.category];
 
   return (
-    <section className="section" style={{ paddingTop: 0 }}>
+    <section className="section">
       <div className="container">
         <div className="section-header">
           <p className="section-label">For the technical</p>
@@ -208,6 +208,7 @@ export function StateMachineWalkthrough() {
 
         <div className="walkthrough-wrap">
           <div className="state-flow-bar">
+            <p className="flow-hint">Click any state to see its guards, events, and on-chain effect.</p>
             <p className="flow-label">Main flow</p>
             <div className="flow-row">
               {FLOW_STATES.map((state, i) => {

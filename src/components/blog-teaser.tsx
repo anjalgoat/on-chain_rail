@@ -6,7 +6,7 @@ import { getRecentPosts } from "@/content/posts";
 export function BlogTeaser() {
   const posts = getRecentPosts(3);
   return (
-    <section className="section" style={{ paddingTop: 0 }}>
+    <section className="section">
       <div className="container">
         <div
           style={{

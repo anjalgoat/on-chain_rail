@@ -2,9 +2,21 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, RotateCcw, CheckCircle, Circle, Loader } from "lucide-react";
+import {
+  Play,
+  RotateCcw,
+  CheckCircle,
+  Circle,
+  Loader,
+  CheckCircle2,
+  Undo2,
+  AlertTriangle,
+  Skull,
+  ExternalLink
+} from "lucide-react";
+import { siteConfig } from "@/content/site";
 
-type Outcome = "release" | "refund" | "dispute";
+type Outcome = "release" | "refund" | "dispute" | "slash";
 
 type SimStep = {
   label: string;
@@ -33,13 +45,35 @@ const STEPS_BY_OUTCOME: Record<Outcome, SimStep[]> = {
     { label: "Opening dispute on-chain", detail: "Evidence reference recorded · funds freezing", durationMs: 1400 },
     { label: "Broadcasting dispute to Base Mainnet", detail: "eth_sendRawTransaction → DisputeOpened event", durationMs: 1800 },
     { label: "Awaiting block confirmation", detail: "Block confirmed · USDC frozen in escrow", durationMs: 2200 }
+  ],
+  slash: [
+    { label: "Submitting delivery reference", detail: "POST /api/escrow/deliver · hash submitted", durationMs: 1100 },
+    { label: "Running verification guards", detail: "Provable fraud confirmed — replayed result hash", durationMs: 1800 },
+    { label: "Resolving dispute via arbitration", detail: "Arbitration key signs slash outcome", durationMs: 1400 },
+    { label: "Broadcasting slash to Base Mainnet", detail: "eth_sendRawTransaction → AgentSlashed event", durationMs: 1800 },
+    { label: "Awaiting block confirmation", detail: "Block confirmed · USDC returned · fraud record written", durationMs: 2200 }
   ]
 };
 
-const RECEIPT_CONFIG: Record<Outcome, { cls: string; title: string; outcomeLabel: string }> = {
-  release: { cls: "", title: "✓ SETTLEMENT COMPLETE", outcomeLabel: "Released → agent" },
-  refund: { cls: "refund", title: "↩ REFUND COMPLETE", outcomeLabel: "Refunded → principal" },
-  dispute: { cls: "dispute", title: "⚠ DISPUTE OPENED", outcomeLabel: "Funds frozen in escrow" }
+const OUTCOME_LABELS: Record<Outcome, string> = {
+  release: "Release",
+  refund: "Refund",
+  dispute: "Dispute",
+  slash: "Slash"
+};
+
+const OUTCOME_ICONS: Record<Outcome, typeof CheckCircle2> = {
+  release: CheckCircle2,
+  refund: Undo2,
+  dispute: AlertTriangle,
+  slash: Skull
+};
+
+const RECEIPT_CONFIG: Record<Outcome, { cls: string; title: string; outcomeLabel: string; icon: typeof CheckCircle2 }> = {
+  release: { cls: "", title: "SETTLEMENT COMPLETE", outcomeLabel: "Released → agent", icon: CheckCircle2 },
+  refund: { cls: "refund", title: "REFUND COMPLETE", outcomeLabel: "Refunded → principal", icon: Undo2 },
+  dispute: { cls: "dispute", title: "DISPUTE OPENED", outcomeLabel: "Funds frozen in escrow", icon: AlertTriangle },
+  slash: { cls: "slash", title: "FRAUD CONFIRMED — SLASH", outcomeLabel: "Slashed · returned to principal", icon: Skull }
 };
 
 function randomHex(len: number) {
@@ -112,9 +146,10 @@ export function SettlementSimulator() {
   const isRunning = simState === "running";
   const isDone = simState === "done";
   const receiptCfg = RECEIPT_CONFIG[outcome];
+  const ReceiptIcon = receiptCfg.icon;
 
   return (
-    <section className="section" id="simulator" style={{ paddingTop: 0 }}>
+    <section className="section" id="simulator">
       <div className="container">
         <div className="section-header">
           <p className="section-label">Try it yourself</p>
@@ -166,20 +201,33 @@ export function SettlementSimulator() {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="sim-outcome">
+              <span className="form-label" id="sim-outcome-label">
                 Verification outcome
-              </label>
-              <select
-                id="sim-outcome"
-                className="form-select"
-                value={outcome}
-                onChange={(e) => setOutcome(e.target.value as Outcome)}
-                disabled={isRunning}
+              </span>
+              <div
+                className="segmented"
+                role="radiogroup"
+                aria-labelledby="sim-outcome-label"
               >
-                <option value="release">Release → agent (verified ✓)</option>
-                <option value="refund">Refund → principal (failed)</option>
-                <option value="dispute">Dispute → funds frozen (fraud flag)</option>
-              </select>
+                {(Object.keys(OUTCOME_LABELS) as Outcome[]).map((opt) => {
+                  const Icon = OUTCOME_ICONS[opt];
+                  const active = outcome === opt;
+                  return (
+                    <button
+                      key={opt}
+                      type="button"
+                      role="radio"
+                      aria-checked={active}
+                      className={`segmented-option ${opt} ${active ? "active" : ""}`}
+                      onClick={() => setOutcome(opt)}
+                      disabled={isRunning}
+                    >
+                      <Icon size={13} aria-hidden="true" />
+                      <span>{OUTCOME_LABELS[opt]}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
@@ -222,10 +270,10 @@ export function SettlementSimulator() {
               <div className="terminal-idle">
                 <span className="terminal-prompt">$ </span>
                 <span className="terminal-cmd">
-                  rail simulate --amount {amount || "0"} --class "{workClass}" --network base
+                  rail simulate --amount {amount || "0"} --class &quot;{workClass}&quot; --network base
                 </span>
                 <div style={{ marginTop: "0.75rem", color: "var(--text-subtle)" }}>
-                  Press "Simulate settlement" to run.
+                  Press &quot;Simulate settlement&quot; to run.
                 </div>
               </div>
             )}
@@ -235,7 +283,7 @@ export function SettlementSimulator() {
                 <div>
                   <span className="terminal-prompt">$ </span>
                   <span className="terminal-cmd">
-                    rail simulate --amount {amount} --class "{workClass}" --outcome {outcome} --network base
+                    rail simulate --amount {amount} --class &quot;{workClass}&quot; --outcome {outcome} --network base
                   </span>
                 </div>
 
@@ -290,6 +338,7 @@ export function SettlementSimulator() {
                       transition={{ duration: 0.3, delay: 0.1 }}
                     >
                       <p className={`receipt-title ${receiptCfg.cls}`}>
+                        <ReceiptIcon size={13} aria-hidden="true" />
                         {receiptCfg.title}
                       </p>
                       <div style={{ display: "grid", gap: "0.3rem" }}>
@@ -307,6 +356,15 @@ export function SettlementSimulator() {
                           </div>
                         ))}
                       </div>
+                      <a
+                        className="receipt-link"
+                        href={siteConfig.contract.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View {siteConfig.contract.addressShort} on Basescan
+                        <ExternalLink size={11} aria-hidden="true" />
+                      </a>
                     </motion.div>
                   )}
                 </AnimatePresence>

@@ -1,26 +1,47 @@
 export const siteConfig = {
   name: "Onchain Rail",
-  title: "Let AI agents autonomously trade services with each other — Base Mainnet.",
+  title: "Settlement infrastructure for autonomous AI agents — Base Mainnet.",
   description:
-    "Onchain Rail enables autonomous agents to trade services with each other, powered by verified escrow. One agent pays another for work, the smart contract locks funds, and settlement happens instantly once verification confirms delivery.",
+    "Onchain Rail is a verified-escrow settlement rail for autonomous AI agents. One agent pays another in USDC. Funds lock on Base. Verification releases payment — or returns it.",
+  contract: {
+    address: "0x15E344d31761c62E22b7B7a5E8A52Bfe41F044d0",
+    addressShort: "0x15E3⁆44d0",
+    href: "https://basescan.org/address/0x15E344d31761c62E22b7B7a5E8A52Bfe41F044d0",
+    deploymentBlock: "45,167,721",
+    network: "Base Mainnet"
+  },
   nav: [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
+    { href: "/#trust", label: "Trust" },
     { href: "/blog", label: "Blog" }
   ],
   hero: {
-    badge: "Base Mainnet deployed · Block 45,167,721",
-    heading: "Autonomous agents trading with each other,",
-    headingAccent: "powered by trustless escrow.",
-    body: "One agent agrees to work for another. Funds lock on Base Mainnet. Verification confirms delivery. Settlement executes instantly. No intermediaries. No friction. Trustless collaboration between autonomous workers.",
-    primaryCta: { href: "#how-it-works", label: "See how it works" },
-    secondaryCta: { href: "#simulator", label: "Try the simulator" }
+    statusVerified: "Contract verified on Basescan",
+    statusGated: "Not yet accepting live user funds",
+    heading: "The",
+    headingAccent: "money rail",
+    headingSuffix: "for AI agents.",
+    body: "One agent pays another in USDC. Funds lock on Base. Verification releases payment — or returns it. On-chain, every time.",
+    primaryCta: { href: "https://basescan.org/address/0x15E344d31761c62E22b7B7a5E8A52Bfe41F044d0", label: "Inspect contract on Basescan", external: true },
+    secondaryCta: { href: "#simulator", label: "Try the simulator", external: false },
+    tertiaryCta: { href: "/about", label: "Read the spec →", external: false }
   },
-  stats: [
-    { label: "Network", value: "Base Mainnet" },
-    { label: "Settlement token", value: "Native USDC" },
-    { label: "Contract status", value: "Verified on Basescan" },
-    { label: "Fund safety", value: "Operator-gated" }
+  trustStrip: {
+    label: "Built on, settled with, inspected on",
+    items: [
+      { label: "Base", sublabel: "Mainnet" },
+      { label: "USDC", sublabel: "Native" },
+      { label: "Foundry", sublabel: "Audited build" },
+      { label: "Basescan", sublabel: "Source verified" },
+      { label: "Open source", sublabel: "Public spec" }
+    ]
+  },
+  milestones: [
+    { label: "Contract deployed", value: "Block 45,167,721", status: "done" as const },
+    { label: "Source verified", value: "Basescan", status: "done" as const },
+    { label: "External audit", value: "In progress", status: "active" as const },
+    { label: "User funds", value: "Gated", status: "blocked" as const }
   ],
   about: {
     heading: "The settlement layer for autonomous work",
@@ -29,5 +50,35 @@ export const siteConfig = {
       "Every work unit follows the same five-step lifecycle: commitment, funding, delivery, verification, and settlement. If verification fails, funds return to the depositor. If fraud is detected, the transaction freezes and evidence is recorded on-chain for dispute resolution.",
       "The Phase 28 contract is deployed and source-verified on Basescan. The system is not yet approved to accept live user funds — that gate opens after all guard checks and external security reviews pass."
     ]
+  },
+  footer: {
+    columns: [
+      {
+        title: "Product",
+        links: [
+          { href: "/", label: "Home" },
+          { href: "/about", label: "About" },
+          { href: "/blog", label: "Blog" },
+          { href: "/#trust", label: "Trust" }
+        ]
+      },
+      {
+        title: "Resources",
+        links: [
+          { href: "/about", label: "Spec" },
+          { href: "https://basescan.org/address/0x15E344d31761c62E22b7B7a5E8A52Bfe41F044d0", label: "Contract ↗", external: true },
+          { href: "/#simulator", label: "Simulator" }
+        ]
+      },
+      {
+        title: "Contact",
+        links: [
+          { href: "mailto:security@onchain-rail.xyz", label: "security@onchain-rail.xyz" }
+        ]
+      }
+    ],
+    disclosure:
+      "Onchain Rail does not custody user funds outside the escrow contract. The system is in pre-launch and not yet approved to accept live user funds.",
+    lastUpdated: "2026-04-26"
   }
 };
