@@ -4,6 +4,7 @@ import { Inter, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { SiteHeader } from "@/components/site-header";
+import { BaseVerification } from "@/components/base-verification";
 import { siteConfig } from "@/content/site";
 
 const inter = Inter({
@@ -63,6 +64,7 @@ export default function RootLayout({
   return (
     <html className={`${inter.variable} ${plexSerif.variable}`} lang="en">
       <body>
+        <BaseVerification />
         <div className="page-frame">
           <SiteHeader />
           <main>{children}</main>
