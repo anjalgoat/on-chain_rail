@@ -20,11 +20,15 @@ const plexSerif = IBM_Plex_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://on-chain-rail.vercel.app"),
   title: {
     default: siteConfig.name,
     template: `%s — ${siteConfig.name}`
   },
   description: siteConfig.description,
+  alternates: {
+    canonical: "/"
+  },
   keywords: [
     "USDC settlement",
     "onchain escrow",
@@ -39,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://onchain-rail.xyz",
+    url: "https://on-chain-rail.vercel.app",
     siteName: siteConfig.name,
     title: siteConfig.name,
     description: siteConfig.description
