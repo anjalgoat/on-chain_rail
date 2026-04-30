@@ -59,6 +59,20 @@ export const metadata: Metadata = {
   },
   other: {
     "base:app_id": "69f2a1186daaf9236cfba3d8",
+    "fc:frame": JSON.stringify({
+      version: "next",
+      imageUrl: "https://on-chain-rail.vercel.app/miniapp/og.svg",
+      button: {
+        title: "Open Onchain Rail",
+        action: {
+          type: "launch_frame",
+          name: siteConfig.name,
+          url: "https://on-chain-rail.vercel.app",
+          splashImageUrl: "https://on-chain-rail.vercel.app/miniapp/icon.svg",
+          splashBackgroundColor: "#0b1020"
+        }
+      }
+    }),
     "fc:miniapp": JSON.stringify({
       version: "next",
       imageUrl: "https://on-chain-rail.vercel.app/miniapp/og.svg",
