@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { CheckCircle2, Loader, MinusCircle, ArrowUpRight } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
@@ -9,6 +10,12 @@ import { TrustStrip } from "@/components/trust-strip";
 import { BlogTeaser } from "@/components/blog-teaser";
 import { siteConfig } from "@/content/site";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  other: {
+    "base:app_id": "69f2a1186daaf9236cfba3d8"
+  }
+};
 
 function MilestoneBar() {
   return (
