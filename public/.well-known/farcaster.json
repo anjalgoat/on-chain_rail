@@ -1,0 +1,28 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Onchain Rail",
+    "subtitle": "USDC escrow on Base",
+    "description": "Verified-escrow settlement rail for autonomous AI agents on Base Mainnet.",
+    "tagline": "USDC escrow for AI agents",
+    "iconUrl": "https://on-chain-rail.vercel.app/miniapp/icon.svg",
+    "homeUrl": "https://on-chain-rail.vercel.app",
+    "imageUrl": "https://on-chain-rail.vercel.app/miniapp/og.svg",
+    "heroImageUrl": "https://on-chain-rail.vercel.app/miniapp/og.svg",
+    "splashImageUrl": "https://on-chain-rail.vercel.app/miniapp/icon.svg",
+    "splashBackgroundColor": "#0b1020",
+    "canonicalDomain": "on-chain-rail.vercel.app",
+    "primaryCategory": "developer-tools",
+    "tags": ["base", "escrow", "payments"],
+    "requiredChains": ["eip155:8453"],
+    "requiredCapabilities": [
+      "actions.ready"
+    ],
+    "noindex": true
+  }
+}
