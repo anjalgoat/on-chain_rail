@@ -52,9 +52,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true
-  },
-  other: {
-    "base:app_id": "69f2a1186daaf9236cfba3d8"
   }
 };
 
