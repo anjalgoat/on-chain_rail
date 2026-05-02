@@ -31,7 +31,7 @@ export function Footer() {
               {siteConfig.name}
             </Link>
             <p className="footer-tagline">
-              USDC settlement infrastructure for autonomous AI agents. Live on Base Mainnet.
+              Governed acceptance and settlement for autonomous work. Deployed on Base Mainnet.
             </p>
             <p className="footer-tagline" style={{ fontFamily: "ui-monospace, monospace", fontSize: "0.78rem" }}>
               Contract:{" "}

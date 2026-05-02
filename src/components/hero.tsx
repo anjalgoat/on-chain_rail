@@ -6,7 +6,6 @@ export function Hero() {
   return (
     <section className="hero">
       <div className="hero-orb hero-orb-1" aria-hidden="true" />
-      <div className="hero-orb hero-orb-2" aria-hidden="true" />
       <div className="container">
         <div className="hero-grid">
           <div className="hero-content">
@@ -25,10 +24,8 @@ export function Hero() {
                 {siteConfig.hero.statusGated}
               </Link>
             </div>
-            <h1 className="hero-heading serif">
-              {siteConfig.hero.heading}{" "}
-              <span className="gradient-text">{siteConfig.hero.headingAccent}</span>{" "}
-              {siteConfig.hero.headingSuffix}
+            <h1 className="hero-heading">
+              {siteConfig.hero.heading}
             </h1>
             <p className="hero-body">{siteConfig.hero.body}</p>
             <div className="hero-actions">
@@ -50,56 +47,41 @@ export function Hero() {
             </div>
           </div>
 
-          <FlowDiagram />
+          <AcceptancePath />
         </div>
       </div>
     </section>
   );
 }
 
-function FlowDiagram() {
+const PATH_STAGES = [
+  { num: "01", label: "Commitment", sub: "Scope, payout terms, and parties defined" },
+  { num: "02", label: "Policy", sub: "Evidence type and verification class fixed" },
+  { num: "03", label: "Economic lock", sub: "USDC locked in contract on Base" },
+  { num: "04", label: "Evidence", sub: "Bounded to precommitted rules only" },
+  { num: "05", label: "Verification", sub: "Offchain · checked against fixed path" },
+  { num: "06", label: "Settlement", sub: "Release · refund · dispute · delayed finality" },
+  { num: "07", label: "Audit", sub: "Immutable record on-chain" },
+];
+
+function AcceptancePath() {
   return (
-    <figure className="hero-diagram" aria-label="Money flow: principal funds escrow, verification releases payment to agent, refund returns to principal on failure.">
-      <figcaption className="diagram-title">Money flow</figcaption>
+    <figure
+      className="hero-diagram"
+      aria-label="Governed acceptance path: commitment, policy, economic lock, evidence, verification, settlement, and audit."
+    >
+      <figcaption className="diagram-title">Acceptance path</figcaption>
 
-      <div className="diagram-row">
-        <div className="diagram-node">
-          <span className="diagram-node-label">Principal</span>
-          <span className="diagram-node-value">Funds USDC</span>
-        </div>
-        <div className="diagram-arrow" aria-hidden="true">
-          <span className="diagram-token">$</span>
-        </div>
-        <div className="diagram-node">
-          <span className="diagram-node-label">Escrow · Base</span>
-          <span className="diagram-node-value tabular-nums">Locked</span>
-        </div>
-      </div>
-
-      <div className="diagram-row">
-        <div className="diagram-node">
-          <span className="diagram-node-label">Escrow · Base</span>
-          <span className="diagram-node-value">Verified</span>
-        </div>
-        <div className="diagram-arrow" aria-hidden="true">
-          <span className="diagram-token" style={{ animationDelay: "1s" }}>$</span>
-        </div>
-        <div className="diagram-node">
-          <span className="diagram-node-label">Agent</span>
-          <span className="diagram-node-value">Paid USDC</span>
-        </div>
-      </div>
-
-      <div className="diagram-row">
-        <div className="diagram-node">
-          <span className="diagram-node-label">Principal</span>
-          <span className="diagram-node-value">Refund / slash</span>
-        </div>
-        <div className="diagram-arrow-back" aria-hidden="true" />
-        <div className="diagram-node">
-          <span className="diagram-node-label">Escrow</span>
-          <span className="diagram-node-value">Failed verify</span>
-        </div>
+      <div className="acceptance-stages">
+        {PATH_STAGES.map((stage) => (
+          <div key={stage.num} className="acceptance-stage">
+            <span className="acceptance-stage-num">{stage.num}</span>
+            <div className="acceptance-stage-content">
+              <span className="acceptance-stage-label">{stage.label}</span>
+              <span className="acceptance-stage-sub">{stage.sub}</span>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="diagram-foot">

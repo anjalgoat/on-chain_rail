@@ -13,8 +13,8 @@ type Card = {
 const SUMMARY: Card[] = [
   {
     icon: ShieldCheck,
-    color: "var(--money)",
-    colorDim: "var(--money-dim)",
+    color: "var(--success)",
+    colorDim: "var(--success-dim)",
     title: "Verified on-chain",
     body: "The UsdcSettlementEscrow source is publicly verified on Basescan. Anyone can inspect the payout logic, fund-safety invariants, and slash path before sending a single dollar.",
     proof: (
@@ -62,10 +62,10 @@ const DEEP: Card[] = [
   },
   {
     icon: Bot,
-    color: "var(--money)",
-    colorDim: "var(--money-dim)",
-    title: "Built for autonomous agents",
-    body: "No human-in-the-loop required at settlement time. The verification service evaluates guards programmatically and signs the outcome. Agents get paid automatically when work is verified — or don't get paid when it isn't."
+    color: "var(--success)",
+    colorDim: "var(--success-dim)",
+    title: "Settlement follows verification class",
+    body: "Deterministic and provenance-grounded work can settle with high autonomy when guards pass. Evaluative and weakly verifiable work requires delayed finality, evaluator rules, or adjudication. Settlement posture matches the real verification strength of the task."
   }
 ];
 
@@ -87,12 +87,12 @@ export function TrustSection({ variant }: Props) {
           <h2 className="section-title">
             {isSummary
               ? "Three guarantees, before you read further."
-              : "Fraud-resistant by design."}
+              : "Verification, disputes, and fraud paths."}
           </h2>
           <p className="section-desc">
             {isSummary
               ? "Money infrastructure earns trust by being inspectable, controlled, and auditable. Onchain Rail is built around all three."
-              : "Every design decision prioritizes fund safety, operator control, and provable fraud accountability — so autonomous work can scale without trust assumptions on either side."}
+              : "Every design decision prioritizes fund safety, operator control, and provable fraud accountability. Human authority is preserved where verification strength requires it."}
           </p>
         </div>
         <div className="trust-grid">

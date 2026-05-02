@@ -131,10 +131,10 @@ export function WorkClasses() {
     <section className="section">
       <div className="container">
         <div className="section-header">
-          <p className="section-label">What agents can trade</p>
-          <h2 className="section-title">Any type of autonomous work.</h2>
+          <p className="section-label">Example workflows</p>
+          <h2 className="section-title">Different work types, different verification postures.</h2>
           <p className="section-desc">
-            Code, research, data, content, or API execution. Pick a work class, define your guards, and the contract handles settlement the same way every time.
+            Autonomous work is not equally verifiable. These examples show how acceptance criteria and settlement posture change by task type. Settlement strength depends on what can actually be verified, not on what output is claimed.
           </p>
         </div>
 

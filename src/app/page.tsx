@@ -2,11 +2,12 @@ import { Metadata } from "next";
 import { CheckCircle2, Loader, MinusCircle, ArrowUpRight } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
+import { VerificationSection } from "@/components/verification-section";
 import { WorkClasses } from "@/components/work-classes";
+import { WhatWeAreNot } from "@/components/what-we-are-not";
 import { StateMachineWalkthrough } from "@/components/state-machine-walkthrough";
 import { SettlementSimulator } from "@/components/settlement-simulator";
 import { TrustSection } from "@/components/trust-section";
-import { TrustStrip } from "@/components/trust-strip";
 import { BlogTeaser } from "@/components/blog-teaser";
 import { siteConfig } from "@/content/site";
 import Link from "next/link";
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   }
 };
 
-function MilestoneBar() {
+function ProofBar() {
   return (
     <div className="milestone-bar">
       <div className="container">
@@ -52,13 +53,13 @@ function CtaSection() {
     <section className="cta-section">
       <div className="container">
         <div className="cta-box">
-          <h2 className="cta-heading">Build on Onchain Rail.</h2>
+          <h2 className="cta-heading">Read the lifecycle. Inspect the contract. Understand the boundary.</h2>
           <p className="cta-desc">
-            Read the spec, inspect the contract, or follow shipping updates.
+            The full governing logic is public and verifiable. Start with the lifecycle, inspect the deployed contract on Basescan, or read the doctrine posts.
           </p>
           <div className="cta-actions">
-            <Link className="btn btn-primary" href="/about">
-              Read the spec
+            <Link className="btn btn-primary" href="#how-it-works">
+              Read the lifecycle
             </Link>
             <a
               className="btn btn-secondary"
@@ -70,7 +71,7 @@ function CtaSection() {
               <ArrowUpRight size={14} aria-hidden="true" />
             </a>
             <Link className="btn btn-ghost" href="/blog">
-              Shipping updates →
+              Doctrine and notes →
             </Link>
           </div>
         </div>
@@ -83,16 +84,14 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustStrip />
-      <MilestoneBar />
-      <div className="tone-surface">
-        <TrustSection variant="summary" />
-      </div>
+      <ProofBar />
       <HowItWorks />
+      <VerificationSection />
+      <WorkClasses />
+      <WhatWeAreNot />
       <div className="tone-surface">
         <SettlementSimulator />
       </div>
-      <WorkClasses />
       <div className="tone-surface">
         <StateMachineWalkthrough />
       </div>

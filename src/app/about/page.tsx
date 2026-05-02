@@ -5,7 +5,7 @@ import { siteConfig } from "@/content/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Onchain Rail is a smart-contract escrow layer for programmable USDC settlement on Base Mainnet. Learn how the lifecycle service and contract work together."
+    "Learn how Onchain Rail defines a precommitted acceptance path for autonomous work, matches settlement to verification strength, and keeps deployment status explicit on Base Mainnet."
 };
 
 export default function AboutPage() {
@@ -36,7 +36,7 @@ export default function AboutPage() {
           </Link>
           <a
             className="btn btn-secondary"
-            href="https://basescan.org/address/0x15E344d31761c62E22b7B7a5E8A52Bfe41F044d0"
+            href="https://basescan.org/address/0x15E379127cb242408ABc7A0F4d3d10f9065D44d0"
             target="_blank"
             rel="noopener noreferrer"
           >

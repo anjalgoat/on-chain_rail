@@ -1,38 +1,44 @@
 :root {
-  --bg: #07090f;
-  --surface: #0d1420;
-  --surface-raised: #132035;
-  --border: rgba(255, 255, 255, 0.07);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --text: #ecf0f8;
-  --text-muted: #a8b3c5;
-  --text-subtle: #5a6478;
+  --bg: #0B0D10;
+  --surface: #12161B;
+  --surface-2: #171C22;
+  --surface-3: #1D232B;
+  --surface-raised: #171C22;
+  --border: #27303A;
+  --border-strong: #34404D;
+  --text: #E8EDF2;
+  --text-muted: #9AA4AF;
+  --text-subtle: #74808C;
 
-  /* Brand: Base blue. Reserve cyan only as hover/highlight. */
+  /* Brand: Base blue */
   --accent: #0052FF;
   --accent-light: #3b82f6;
   --accent-hover: #1e40ff;
   --accent-dim: rgba(0, 82, 255, 0.10);
   --accent-glow: rgba(0, 82, 255, 0.22);
 
-  /* Money: green, used only for fund-flow surfaces. */
-  --money: #10b981;
-  --money-dim: rgba(16, 185, 129, 0.10);
+  /* State colors — status-driven, not decorative */
+  --success: #7ED6A7;
+  --success-dim: rgba(126, 214, 167, 0.12);
+  --success-strong: #2D7E5E;
+  --warning: #D9B36C;
+  --warning-dim: rgba(217, 179, 108, 0.12);
+  --info: #7FA8D8;
+  --info-dim: rgba(127, 168, 216, 0.12);
+  --danger: #D46A6A;
+  --danger-dim: rgba(212, 106, 106, 0.12);
 
-  /* Verified gold reserved for audit/verification badges only. */
-  --gold: #d4af37;
-
-  --success: #10b981;
-  --success-dim: rgba(16, 185, 129, 0.12);
-  --warning: #f59e0b;
-  --warning-dim: rgba(245, 158, 11, 0.12);
-  --danger: #ef4444;
-  --danger-dim: rgba(239, 68, 68, 0.12);
+  /* Legacy alias — kept for backward compat */
+  --money: #7ED6A7;
+  --money-dim: rgba(126, 214, 167, 0.12);
 
   --radius-sm: 0.375rem;
-  --radius: 0.625rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  --radius: 0.5rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+
+  --duration-fast: 0.12s;
+  --duration-medium: 0.2s;
 }
 
 *,
@@ -192,12 +198,12 @@ button {
 .nav-cta {
   margin-left: 0.5rem;
   padding: 0.4rem 0.875rem;
-  border-radius: 999px;
+  border-radius: var(--radius);
   font-size: 0.825rem;
   font-weight: 500;
   background: var(--accent);
   color: #fff;
-  transition: background 0.15s ease, opacity 0.15s ease;
+  transition: background var(--duration-fast) ease, opacity var(--duration-fast) ease;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -543,12 +549,12 @@ button {
   gap: 0.5rem;
   height: 2.5rem;
   padding: 0 1.25rem;
-  border-radius: 999px;
+  border-radius: var(--radius);
   font-size: 0.9rem;
   font-weight: 500;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--duration-fast) ease;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -756,11 +762,11 @@ button {
 }
 
 .section-title {
-  font-family: var(--font-serif), 'IBM Plex Serif', Georgia, serif;
-  font-size: clamp(1.85rem, 3.5vw, 2.85rem);
-  font-weight: 500;
+  font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 600;
   letter-spacing: -0.025em;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .section-desc {
@@ -1761,9 +1767,9 @@ button {
 }
 
 .cta-heading {
-  font-family: var(--font-serif), 'IBM Plex Serif', Georgia, serif;
-  font-size: clamp(1.85rem, 3vw, 2.5rem);
-  font-weight: 500;
+  font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 600;
   letter-spacing: -0.025em;
   position: relative;
 }
@@ -1877,9 +1883,9 @@ button {
 }
 
 .prose h1 {
-  font-family: var(--font-serif), 'IBM Plex Serif', Georgia, serif;
-  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
-  font-weight: 500;
+  font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 600;
   letter-spacing: -0.025em;
   margin-bottom: 1.5rem;
 }
@@ -1900,6 +1906,313 @@ button {
   margin-bottom: 0;
 }
 
+/* ─── Acceptance Path Diagram ─────────────────────── */
+
+.acceptance-stages {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.acceptance-stage {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.acceptance-stage:last-child {
+  border-bottom: none;
+}
+
+.acceptance-stage-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  color: var(--text-subtle);
+  letter-spacing: 0.08em;
+  padding-top: 0.15rem;
+  min-width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.acceptance-stage-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.175rem;
+}
+
+.acceptance-stage-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.acceptance-stage-sub {
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+/* ─── Steps Grid 7 ────────────────────────────────── */
+
+.steps-grid-7 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+/* ─── Section desc block ──────────────────────────── */
+
+.section-desc-block {
+  display: grid;
+  gap: 0;
+}
+
+/* ─── Mono label ──────────────────────────────────── */
+
+.mono-label {
+  font-family: ui-monospace, 'IBM Plex Mono', monospace !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* ─── Verification Section ────────────────────────── */
+
+.explainer-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.explainer-card {
+  background: var(--surface);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.explainer-card-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  color: var(--success);
+  letter-spacing: 0.1em;
+}
+
+.explainer-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.explainer-card-body {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ─── Verification Classes ────────────────────────── */
+
+.vclass-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.vclass-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vclass-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.vclass-id {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  line-height: 1;
+}
+
+.vclass-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.vclass-best-for {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.vclass-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.vclass-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.vclass-row-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  margin: 0;
+}
+
+.vclass-row-value {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.vclass-posture {
+  padding: 0.75rem 0.875rem;
+  border: 1px solid;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: auto;
+}
+
+.vclass-posture-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  margin: 0;
+}
+
+.vclass-posture-body {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ─── What We Are Not ─────────────────────────────── */
+
+.what-we-are-not-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: flex-start;
+}
+
+.what-we-are-not-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.what-we-are-not-heading {
+  max-width: 28rem;
+}
+
+.not-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.not-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.not-item:last-of-type {
+  border-bottom: 1px solid var(--border);
+}
+
+.not-item-mark {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--danger);
+  font-family: ui-monospace, monospace;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+  min-width: 1rem;
+}
+
+.not-item-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.is-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: color-mix(in srgb, var(--success) 7%, var(--surface));
+  border-top: 1px solid color-mix(in srgb, var(--success) 20%, transparent);
+}
+
+.is-item-mark {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--success);
+  font-family: ui-monospace, monospace;
+  flex-shrink: 0;
+  padding-top: 0.05rem;
+  min-width: 1rem;
+}
+
+.is-item-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+}
+
 /* ─── Divider ─────────────────────────────────────── */
 
 .divider {
@@ -1913,6 +2226,16 @@ button {
 @media (max-width: 960px) {
   .hero-diagram {
     order: 2;
+  }
+}
+
+@media (max-width: 1100px) {
+  .vclass-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps-grid-7 {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -1998,6 +2321,19 @@ button {
   .segmented {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .explainer-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .what-we-are-not-wrap {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .steps-grid-7 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 640px) {
@@ -2037,6 +2373,14 @@ button {
   }
 
   .steps-grid-5 {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-grid-7 {
+    grid-template-columns: 1fr;
+  }
+
+  .vclass-grid {
     grid-template-columns: 1fr;
   }
 
